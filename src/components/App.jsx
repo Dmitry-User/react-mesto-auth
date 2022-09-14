@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
-import Footer from "./Footer";
+import { Route, Switch } from "react-router-dom";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Main from "./Main";
+import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import EditProfilePopup from "./EditProfilePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import api from "../utils/Api";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import Register from "./Register";
+import Login from "./Login";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
@@ -31,7 +34,7 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
-  function handleUpdateUser(user) {
+  const handleUpdateUser = (user) => {
     setIsLoading(true);
     api
       .setUserInfo(user)
@@ -43,7 +46,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleUpdateAvatar(user) {
+  const handleUpdateAvatar = (user) => {
     setIsLoading(true);
     api
       .setAvatar(user)
@@ -55,7 +58,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleAddPlaceSubmit(cardData) {
+  const handleAddPlaceSubmit = (cardData) => {
     setIsLoading(true);
     api
       .addCard(cardData)
@@ -67,7 +70,7 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleCardLike(card) {
+  const handleCardLike = (card) => {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
@@ -77,7 +80,7 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleCardDelete() {
+  const handleCardDelete = () => {
     const currentCard = cardId;
     setIsLoading(true);
     api
@@ -90,29 +93,23 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  function handleDeleteCardClick(cardId) {
+  const handleDeleteCardClick = (cardId) => {
     setConfirmDeletePopupOpen(!isConfirmDeletePopupOpen);
     setCardId(cardId);
   }
 
-  function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
-  }
+  const handleEditAvatarClick = () => setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
 
-  function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
-  }
+  const handleEditProfileClick = () => setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
 
-  function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
-  }
+  const handleAddPlaceClick = () => setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
 
-  function handleCardClick(card) {
+  const handleCardClick = (card) => {
     setSelectedCard(card);
     setIsPlacePopupOpen(!isPlacePopupOpen);
   }
 
-  function closeAllPopups() {
+  const closeAllPopups = () => {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -126,15 +123,25 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
         <Header />
-        <Main
-          cards={cards}
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleDeleteCardClick}
-          onCardClick={handleCardClick}
-          onAddCard={handleAddPlaceClick}
-        />
+        <Switch>
+          <Route path="/">
+            <Main
+              cards={cards}
+              onEditAvatar={handleEditAvatarClick}
+              onEditProfile={handleEditProfileClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleDeleteCardClick}
+              onCardClick={handleCardClick}
+              onAddCard={handleAddPlaceClick}
+            />
+          </Route>
+          <Route path="/sign-up">
+            <Register />
+          </Route>
+          <Route path="/sign-in">
+            <Login />
+          </Route>
+        </Switch>
         <Footer />
       </div>
 
