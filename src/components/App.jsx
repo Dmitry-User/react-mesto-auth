@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
-import Main from "./Main";
+import Plases from "./Plases";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -12,8 +12,10 @@ import AddPlacePopup from "./AddPlacePopup";
 import api from "../utils/Api";
 import Register from "./Register";
 import Login from "./Login";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState([]);
@@ -119,13 +121,18 @@ function App() {
     setCardId("");
   }
 
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
-        <Header />
-        <Switch>
-          <Route path="/">
-            <Main
+        <Header
+          loggedIn={loggedIn}
+        />
+        <main className="content">
+          <Switch>
+            <ProtectedRoute
+              path="/"
+              loggedIn={loggedIn}
               cards={cards}
               onEditAvatar={handleEditAvatarClick}
               onEditProfile={handleEditProfileClick}
@@ -133,15 +140,19 @@ function App() {
               onCardDelete={handleDeleteCardClick}
               onCardClick={handleCardClick}
               onAddCard={handleAddPlaceClick}
+              component={Plases}
             />
-          </Route>
-          <Route path="/sign-up">
-            <Register />
-          </Route>
-          <Route path="/sign-in">
-            <Login />
-          </Route>
-        </Switch>
+            <Route path="/sign-up">
+              <Register />
+            </Route>
+            <Route path="/sign-in">
+              <Login />
+            </Route>
+            <Route exact path="/">
+              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            </Route>
+          </Switch>
+        </main>
         <Footer />
       </div>
 

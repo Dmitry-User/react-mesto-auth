@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import logo from '../images/logo.svg';
 
-function Header() {
+function Header({ loggedIn }) {
 
   return (
     <header className="header">
@@ -10,10 +10,16 @@ function Header() {
         alt="Логотип"
         className="header__logo"
       />
-      <div className="header__info">
-        <p className="header__user-email">wer@ergw.com</p>
-        <Link className="header__navigation element-hover" to="/sign-in">Регистрация</Link>
-      </div>
+      <ul className="header__info">
+        {loggedIn &&
+          <li>
+            <p className="header__user-email">wer@ergw.com</p>
+          </li>
+        }
+        <li>
+          <Link className="header__navigation element-hover" to="/sign-in">Регистрация</Link>
+        </li>
+      </ul>
     </header>
   );
 }

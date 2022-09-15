@@ -1,5 +1,10 @@
 class Api {
   constructor() {
+    this._baseUrlAuth = "https://auth.nomoreparties.co/";
+    this._headersAuth = {
+      "Accept": "application/json",
+      "Content-Type": "application/json",
+    };
     this._baseUrl = "https://mesto.nomoreparties.co/v1/cohort-47";
     this._headers = {
       authorization: "5755190e-89aa-4139-b42f-16592ed204be",
@@ -9,6 +14,24 @@ class Api {
 
   _getResponse(res) {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  getRegisterUser(password, email) {
+    return fetch(`${this._baseUrlAuth}/auth/local/register`, {
+      method: 'POST',
+      headers: this._headersAuth,
+      body: JSON.stringify({ password, email })
+    })
+    .then(this._getResponse);
+  }
+
+  getAuthUser(password, email) {
+    return fetch(`${this._baseUrlAuth}/auth/local/register`, {
+      method: 'POST',
+      headers: this._headersAuth,
+      body: JSON.stringify({ password, email })
+    })
+    .then(this._getResponse);
   }
 
   setUserInfo(userData) {

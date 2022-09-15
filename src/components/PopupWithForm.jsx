@@ -30,13 +30,13 @@ function PopupWithForm({
           name={name}
           onSubmit={onSubmit}
           noValidate
-          className="form popup__form"
+          className="form"
         >
           {children}
           <button
             type="submit"
             disabled={isLoading}
-            className={`popup__submit ${!isValidForm && "popup__submit_disable"}`}
+            className={`form__submit ${!isValidForm && "form__submit_disable"}`}
             aria-label={buttonText}
           >
             {buttonText}

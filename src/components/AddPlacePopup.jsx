@@ -28,7 +28,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, buttonText }) {
       isValidForm={isValidForm}
       buttonText={buttonText}
     >
-      <label className="popup__label">
+      <label>
         <input
           type="text"
           value={values.name}
@@ -38,11 +38,11 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, buttonText }) {
           maxLength="30"
           placeholder="Название"
           required
-          className="popup__input"
+          className="form__input"
         />
-        <span className="popup__error">{errors.name}</span>
+        <span className="form__error">{errors.name}</span>
       </label>
-      <label className="popup__label">
+      <label>
         <input
           type="url"
           value={values.link}
@@ -50,9 +50,9 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, buttonText }) {
           name="link"
           placeholder="Ссылка на фото"
           required
-          className="popup__input"
+          className="form__input"
         />
-        <span className="popup__error">{errors.link}</span>
+        <span className="form__error">{errors.link}</span>
       </label>
     </PopupWithForm>
   );

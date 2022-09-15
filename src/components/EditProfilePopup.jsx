@@ -36,7 +36,7 @@ function EditProfilePopup({
       isValidForm={isValidForm}
       buttonText={buttonText}
     >
-      <label className="popup__label">
+      <label>
         <input
           type="text"
           name="name"
@@ -46,11 +46,11 @@ function EditProfilePopup({
           minLength="2"
           maxLength="40"
           required
-          className="popup__input"
+          className="form__input"
         />
-        <span className="popup__error">{errors.name}</span>
+        <span className="form__error">{errors.name}</span>
       </label>
-      <label className="popup__label">
+      <label>
         <input
           type="text"
           name="about"
@@ -60,9 +60,9 @@ function EditProfilePopup({
           minLength="2"
           maxLength="200"
           required
-          className="popup__input"
+          className="form__input"
         />
-        <span className="popup__error">{errors.about}</span>
+        <span className="form__error">{errors.about}</span>
       </label>
     </PopupWithForm>
   );

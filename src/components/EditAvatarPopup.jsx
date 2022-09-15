@@ -28,16 +28,16 @@ function EditAvatarPopup({
       isValidForm={true}
       buttonText={buttonText}
     >
-      <label className="popup__label">
+      <label>
         <input
           ref={refValue}
           type="url"
           name="avatar"
           placeholder="Ссылка на фото"
           required
-          className="popup__input"
+          className="form__input"
         />
-        <span className="popup__error" />
+        <span className="form__error" />
       </label>
     </PopupWithForm>
   );

@@ -12,7 +12,7 @@ function useForm(inputValues) {
 
     setValues({...values, [name]: value});
     setErrors({...errors, [name]: errorMessage});
-    setIsValidForm(e.target.closest('.popup__form').checkValidity());
+    setIsValidForm(e.target.closest('.form').checkValidity());
   }
 
   function resetForm() {

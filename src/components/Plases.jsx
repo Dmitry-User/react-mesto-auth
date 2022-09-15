@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Card from "./Card";
 
-function Main({
+function Plases({
   onEditAvatar,
   onEditProfile,
   onAddCard,
@@ -14,7 +14,7 @@ function Main({
   const currentUser = useContext(CurrentUserContext);
 
   return (
-    <main className="content">
+    <>
       <section className="profile" aria-label="Секция профиль">
         <div className="profile__avatar">
           <img
@@ -59,8 +59,8 @@ function Main({
           />
         ))}
       </section>
-    </main>
+    </>
   );
 }
 
-export default Main;
+export default Plases;

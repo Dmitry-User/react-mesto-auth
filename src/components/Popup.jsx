@@ -26,7 +26,7 @@ function Popup({ isOpen, onClose, children, background }) {
   return (
     <div
       onMouseDown={handleCloseByOverlay}
-      className={`popup popup_background_${background} ${isOpen && "popup_is-open"}`}
+      className={`popup popup_background_${background} ${isOpen ? "popup_is-open" : ""}`}
     >
       {children}
     </div>
