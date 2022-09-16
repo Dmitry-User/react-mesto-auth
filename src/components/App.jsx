@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header";
 import Plases from "./Plases";
@@ -10,12 +10,12 @@ import EditProfilePopup from "./EditProfilePopup";
 import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import api from "../utils/Api";
-import Register from "./Register";
 import Login from "./Login";
+import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const loggedIn = true;
   const [currentUser, setCurrentUser] = useState({ name: "", about: "" });
   const [isLoading, setIsLoading] = useState(false);
   const [cards, setCards] = useState([]);
@@ -131,6 +131,7 @@ function App() {
         <main className="content">
           <Switch>
             <ProtectedRoute
+              exact
               path="/"
               loggedIn={loggedIn}
               cards={cards}
@@ -142,16 +143,13 @@ function App() {
               onAddCard={handleAddPlaceClick}
               component={Plases}
             />
-            <Route path="/sign-up">
-              <Register />
-            </Route>
             <Route path="/sign-in">
               <Login />
             </Route>
-            <Route exact path="/">
-              {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
+            <Route path="/sign-up">
+              <Register />
             </Route>
-          </Switch>
+           </Switch>
         </main>
         <Footer />
       </div>

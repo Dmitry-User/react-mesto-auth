@@ -16,11 +16,11 @@ class Api {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  getRegisterUser(password, email) {
+  getRegisterUser(email, password) {
     return fetch(`${this._baseUrlAuth}/auth/local/register`, {
       method: 'POST',
       headers: this._headersAuth,
-      body: JSON.stringify({ password, email })
+      body: JSON.stringify({ email, password })
     })
     .then(this._getResponse);
   }

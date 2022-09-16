@@ -1,0 +1,15 @@
+.register__input {
+  padding: 0 0 13px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  background: transparent;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  line-height: 17px;
+  color: #fff;
+}
+
+.register__input:not(:last-of-type) {
+  margin-bottom: 30px;
+}
