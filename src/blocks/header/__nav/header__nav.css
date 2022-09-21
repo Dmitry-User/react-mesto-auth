@@ -8,3 +8,9 @@
 .header__nav li:not(:last-child) {
   margin: 0 24px 0 0;
 }
+
+@media (max-width: 928px) {
+  .header__nav {
+    margin-right: 30px;
+  }
+}

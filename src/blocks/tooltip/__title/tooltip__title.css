@@ -9,7 +9,6 @@
 
 @media (max-width: 618px) {
   .tooltip__title {
-    margin-bottom: 75px;
     font-size: 18px;
     line-height: 22px;
   }

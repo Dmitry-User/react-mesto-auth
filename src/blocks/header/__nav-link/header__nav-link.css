@@ -7,3 +7,10 @@
   color: #fff;
   text-decoration: none;
 }
+
+@media (max-width: 618px) {
+  .header__nav-link {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
