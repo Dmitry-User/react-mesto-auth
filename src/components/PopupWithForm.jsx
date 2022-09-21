@@ -1,6 +1,6 @@
 import Popup from "./Popup";
 
-function PopupWithForm({
+const PopupWithForm = ({
   name,
   title,
   isOpen,
@@ -9,8 +9,8 @@ function PopupWithForm({
   children,
   isLoading,
   isValidForm,
-  buttonText
-}) {
+  buttonText,
+}) => {
   return (
     <Popup
       isOpen={isOpen}
@@ -26,12 +26,7 @@ function PopupWithForm({
           aria-label="Закрыть"
         />
         <h2 className="popup__title">{title}</h2>
-        <form
-          name={name}
-          onSubmit={onSubmit}
-          noValidate
-          className="form"
-        >
+        <form name={name} onSubmit={onSubmit} noValidate className="form">
           {children}
           <button
             type="submit"
@@ -45,6 +40,6 @@ function PopupWithForm({
       </div>
     </Popup>
   );
-}
+};
 
 export default PopupWithForm;

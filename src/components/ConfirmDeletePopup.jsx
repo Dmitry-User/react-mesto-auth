@@ -1,16 +1,16 @@
 import PopupWithForm from "./PopupWithForm";
 
-function ConfirmDeletePopup({
+const ConfirmDeletePopup = ({
   isOpen,
   onClose,
   isLoading,
   buttonText,
   onDeleteCard,
-}) {
-  function handleSubmit(e) {
+}) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onDeleteCard();
-  }
+  };
 
   return (
     <PopupWithForm
@@ -24,6 +24,6 @@ function ConfirmDeletePopup({
       buttonText={buttonText}
     />
   );
-}
+};
 
 export default ConfirmDeletePopup;

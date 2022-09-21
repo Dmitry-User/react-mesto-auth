@@ -1,5 +1,4 @@
-function Footer() {
-
+const Footer = () => {
   return (
     <footer className="footer">
       <p className="footer__copyright">
@@ -7,6 +6,6 @@ function Footer() {
       </p>
     </footer>
   );
-}
+};
 
 export default Footer;

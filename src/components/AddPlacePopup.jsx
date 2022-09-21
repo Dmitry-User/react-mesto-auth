@@ -2,20 +2,28 @@ import { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 import useForm from "../hooks/useForm";
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, buttonText }) {
-  const { values, setValues, handleChange, errors, isValidForm, resetForm } = useForm({ name: "", link: "" });
+const initValue = { name: "", link: "" };
+
+const AddPlacePopup = ({
+  isOpen,
+  onClose,
+  onAddPlace,
+  isLoading,
+  buttonText,
+}) => {
+  const { values, setValues, handleChange, errors, isValidForm, resetForm } = useForm(initValue);
 
   useEffect(() => {
     if (isOpen) {
-      setValues({ name: "", link: "" });
+      setValues(initValue);
       resetForm();
     }
   }, [isOpen]);
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onAddPlace(values);
-  }
+  };
 
   return (
     <PopupWithForm
@@ -56,6 +64,6 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading, buttonText }) {
       </label>
     </PopupWithForm>
   );
-}
+};
 
 export default AddPlacePopup;

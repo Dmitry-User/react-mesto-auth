@@ -1,24 +1,24 @@
 import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
-function Card({ card, onCardClick, onCardLike, onCardDelete }) {
+const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
   const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const cardDeleteButtonClassName = `card__delete-button ${isOwn ? "card__delete-button_visible" : "card__delete-button_hidden"}`;
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
   const cardLikeButtonClassName = `card__like ${isLiked ? "card__like_visible" : "card__like_hidden"}`;
 
-  function handleLikeClick() {
+  const handleLikeClick = () => {
     onCardLike(card);
-  }
+  };
 
-  function handleDeleteClick() {
+  const handleDeleteClick = () => {
     onCardDelete(card._id);
-  }
+  };
 
-  function handleClick() {
+  const handleClick = () => {
     onCardClick(card);
-  }
+  };
 
   return (
     <article key={card._id} className="card">
@@ -43,11 +43,13 @@ function Card({ card, onCardClick, onCardLike, onCardDelete }) {
             type="button"
             aria-label="Поставить лайк"
           />
-          <span className={`card__like-count ${(card.likes.length < 1) && "hide-like"}`}>{card.likes.length}</span>
+          <span className={`card__like-count ${(card.likes.length < 1) && "hide-like"}`}>
+            {card.likes.length}
+          </span>
         </div>
       </div>
     </article>
   );
-}
+};
 
 export default Card;

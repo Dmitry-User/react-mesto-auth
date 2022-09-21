@@ -12,6 +12,6 @@
 }
 
 /* для Chrome (убирает серый фон инпута) */
-input:-webkit-autofill {
-  -webkit-background-clip: text;
+.form__input:autofill {
+  background-clip: text;
 }

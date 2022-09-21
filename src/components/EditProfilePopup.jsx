@@ -3,27 +3,27 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 import useForm from "../hooks/useForm";
 
-function EditProfilePopup({
+const EditProfilePopup = ({
   isOpen,
   onClose,
   onUpdateUser,
   isLoading,
   buttonText,
-}) {
+}) => {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, errors, handleChange, isValidForm, resetForm } = useForm(currentUser);
 
   useEffect(() => {
     if (isOpen) {
-      resetForm();
       setValues(currentUser);
+      resetForm();
     }
   }, [isOpen]);
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     onUpdateUser(values);
-  }
+  };
 
   return (
     <PopupWithForm
@@ -66,6 +66,6 @@ function EditProfilePopup({
       </label>
     </PopupWithForm>
   );
-}
+};
 
 export default EditProfilePopup;

@@ -2,15 +2,15 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Card from "./Card";
 
-function Plases({
+const Main = ({
   onEditAvatar,
   onEditProfile,
   onAddCard,
   onCardClick,
   cards,
   onCardLike,
-  onCardDelete
-}) {
+  onCardDelete,
+}) => {
   const currentUser = useContext(CurrentUserContext);
 
   return (
@@ -61,6 +61,6 @@ function Plases({
       </section>
     </>
   );
-}
+};
 
-export default Plases;
+export default Main;
