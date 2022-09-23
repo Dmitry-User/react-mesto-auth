@@ -14,4 +14,4 @@
 * Grid Layout
 * ReactJS
 
-[Ссылка на проект **Место**](https://dmitry-user.github.io/react-mesto-auth/)
+[Ссылка на проект **Место**](https://dmitry-user.github.io/react-mesto-auth)
