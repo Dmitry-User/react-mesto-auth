@@ -1,8 +1,8 @@
 import useForm from "../hooks/useForm";
 const initValues = { password: "", email: "" };
 
-const Login = ({ onLogin }) => {
-  const { values, handleChange, errors } = useForm(initValues);
+const Login = ({ onLogin, onInfoTooltip }) => {
+  const { values, handleChange, errors, isValidForm } = useForm(initValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -10,12 +10,13 @@ const Login = ({ onLogin }) => {
     if (!password || !email) return;
     onLogin(password, email)
       .catch((err) => {
-      console.log(err);
+        onInfoTooltip(false);
+        console.log(err);
       });
   };
 
   return (
-    <div className="login">
+    <section className="login">
       <h2 className="login__title">Вход</h2>
       <form className="form login__form" noValidate onSubmit={handleSubmit}>
         <label>
@@ -42,11 +43,11 @@ const Login = ({ onLogin }) => {
           />
           <span className="form__error">{errors.password}</span>
         </label>
-        <button type="submit" aria-label="Войти" className="login__submit">
+        <button type="submit" aria-label="Войти" className={`login__submit ${!isValidForm && "login__submit_disable"}`}>
           Войти
         </button>
       </form>
-    </div>
+    </section>
   );
 };
 

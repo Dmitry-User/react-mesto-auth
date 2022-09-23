@@ -2,16 +2,10 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0 0 10px 0;
-  background: transparent; /* для Chrome (убирает серый фон инпута) */
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   outline: none;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 17px;
-}
-
-/* для Chrome (убирает серый фон инпута) */
-.form__input:autofill {
-  background-clip: text;
 }

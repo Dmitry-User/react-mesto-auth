@@ -9,7 +9,8 @@ export const request = ({ url, method, token, data }) => {
       ...(!!token && { Authorization: `Bearer ${token}` }),
     },
     ...(!!data && { body: JSON.stringify(data) }),
-  }).then((res) => {
+  })
+  .then((res) => {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-  });
+  })
 };

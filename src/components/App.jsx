@@ -15,6 +15,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import api from "../utils/Api";
 import * as auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
+import InfoBar from "./InfoBar";
 
 const App = () => {
   const history = useHistory();
@@ -28,10 +29,11 @@ const App = () => {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isConfirmDeletePopupOpen, setConfirmDeletePopupOpen] = useState(false);
   const [isPlacePopupOpen, setIsPlacePopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [loggedIn, setLoggetIn] = useState(false);
   const [emailUser, setEmailUser] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
@@ -40,6 +42,22 @@ const App = () => {
         setCards(cards);
       })
       .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    const tokenCheck = () => {
+      if (!localStorage.getItem("token")) return;
+      const token = localStorage.getItem("token");
+      auth.getContent(token)
+        .then((res) => {
+          setEmailUser(res.data.email);
+          setLoggetIn(true);
+          history.push("/");
+        })
+        .catch((err) => console.log(err));
+    };
+
+    tokenCheck();
   }, []);
 
   const handleUpdateUser = (user) => {
@@ -133,30 +151,22 @@ const App = () => {
     return auth.authorize(password, email)
       .then((data) => {
         localStorage.setItem("token", data.token);
+        setEmailUser(email);
         setLoggetIn(true);
         history.push("/");
       });
   };
 
-  useEffect(() => {
-    const tokenCheck = () => {
-      if (!localStorage.getItem("token")) return;
-      const token = localStorage.getItem("token");
-      return auth.getContent(token)
-        .then((res) => {
-          setEmailUser(res.data.email);
-        })
-        .catch((err) => console.log(err));
-    };
-
-    tokenCheck();
-  });
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     setEmailUser("");
     setLoggetIn(false);
+    setIsVisible(false);
     history.push("/sign-in");
+  };
+
+  const handleVisible = () => {
+    setIsVisible(!isVisible);
   };
 
   const handleInfoTooltip = (status) => {
@@ -178,11 +188,15 @@ const App = () => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
-        <Header emailUser={emailUser} onLogout={handleLogout} />
+        <InfoBar isVisible={isVisible} emailUser={emailUser} onLogout={handleLogout} />
+        <Header emailUser={emailUser} onLogout={handleLogout} onVisible={handleVisible}/>
         <main className="content">
           <Switch>
             <Route path="/sign-in">
-              <Login onLogin={handleLogin} />
+              <Login
+                onLogin={handleLogin}
+                onInfoTooltip={handleInfoTooltip}
+              />
             </Route>
             <Route path="/sign-up">
               <Register

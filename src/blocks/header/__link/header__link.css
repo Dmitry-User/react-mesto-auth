@@ -1,4 +1,4 @@
-.header__nav-link {
+.header__link {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 618px) {
-  .header__nav-link {
+  .header__link {
     font-size: 14px;
     line-height: 17px;
   }

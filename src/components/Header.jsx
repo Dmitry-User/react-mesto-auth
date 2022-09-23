@@ -1,42 +1,45 @@
+import { useState } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import logo from "../images/logo.svg";
 
-const Header = ({ emailUser, onLogout }) => {
+const Header = ({ emailUser, onLogout, onVisible }) => {
+  const [isClick, setIsClick] = useState(false);
+
+  const handleBurgerClick = () => {
+    isClick ? setIsClick(false) : setIsClick(true);
+    onVisible();
+  };
+
   return (
     <header className="header">
       <img src={logo} alt="Логотип" className="header__logo" />
-      <ul className="header__nav">
-        <Switch>
-          <Route exact path="/">
-            <li>
-              <p className="header__email">{emailUser}</p>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={onLogout}
-                className="header__button element-hover"
-              >
-                Выйти
-              </button>
-            </li>
-          </Route>
-          <Route path="/sign-up">
-            <li>
-              <Link to="/sign-in" className="header__nav-link element-hover">
-                Войти
-              </Link>
-            </li>
-          </Route>
-          <Route path="/sign-in">
-            <li>
-              <Link to="/sign-up" className="header__nav-link element-hover">
-                Регистрация
-              </Link>
-            </li>
-          </Route>
-        </Switch>
-      </ul>
+      <Switch>
+        <Route exact path="/">
+          <div className="header__info">
+            <p className="header__email">{emailUser}</p>
+            <button
+              type="button"
+              onClick={onLogout}
+              className="header__button element-hover"
+            >
+              Выйти
+            </button>
+          </div>
+          <div className={`header__burger-button ${isClick ? "header__burger-button_is-click" : ""}`} onClick={handleBurgerClick}>
+            <span></span>
+          </div>
+        </Route>
+        <Route path="/sign-up">
+          <Link to="/sign-in" className="header__link element-hover">
+            Войти
+          </Link>
+        </Route>
+        <Route path="/sign-in">
+          <Link to="/sign-up" className="header__link element-hover">
+            Регистрация
+          </Link>
+        </Route>
+      </Switch>
     </header>
   );
 };

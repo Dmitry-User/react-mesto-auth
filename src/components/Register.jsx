@@ -3,13 +3,12 @@ import useForm from "../hooks/useForm";
 const initValues = { password: "", email: "" };
 
 const Register = ({ onRegister, onInfoTooltip }) => {
-  const { values, handleChange, errors } = useForm(initValues);
+  const { values, handleChange, errors, isValidForm } = useForm(initValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = values;
     if (!password || !email) return;
-
     onRegister(password, email)
       .then(() => {
         onInfoTooltip(true);
@@ -21,7 +20,7 @@ const Register = ({ onRegister, onInfoTooltip }) => {
   };
 
   return (
-    <div className="register">
+    <section className="register">
       <h2 className="register__title">Регистрация</h2>
       <form className="form register__form" noValidate onSubmit={handleSubmit}>
         <label>
@@ -48,7 +47,7 @@ const Register = ({ onRegister, onInfoTooltip }) => {
           />
           <span className="form__error">{errors.password}</span>
         </label>
-        <button type="submit" aria-label="Войти" className="register__submit">
+        <button type="submit" aria-label="Войти" className={`register__submit ${!isValidForm && "register__submit_disable"}`}>
           Зарегистрироваться
         </button>
       </form>
@@ -58,7 +57,7 @@ const Register = ({ onRegister, onInfoTooltip }) => {
           &ensp;Войти
         </Link>
       </div>
-    </div>
+    </section>
   );
 };
 

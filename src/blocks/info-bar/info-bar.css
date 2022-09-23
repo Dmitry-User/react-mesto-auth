@@ -1,0 +1,9 @@
+.info-bar {
+  height: 142px;
+  overflow: hidden;
+  opacity: 1;
+  box-sizing: border-box;
+  text-align: center;
+  border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  transition: all .5s ease-in-out;
+}
