@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import logo from "../images/logo.svg";
 
-const Header = ({ emailUser, onLogout, onVisible }) => {
+const Header = ({ emailUser, onLogout, onVisible, onInitInput }) => {
   const [isClick, setIsClick] = useState(false);
 
   const handleBurgerClick = () => {
@@ -25,17 +25,30 @@ const Header = ({ emailUser, onLogout, onVisible }) => {
               Выйти
             </button>
           </div>
-          <div className={`header__burger-button ${isClick ? "header__burger-button_is-click" : ""}`} onClick={handleBurgerClick}>
+          <div
+            className={`header__burger-button ${
+              isClick ? "header__burger-button_is-click" : ""
+            }`}
+            onClick={handleBurgerClick}
+          >
             <span></span>
           </div>
         </Route>
         <Route path="/sign-up">
-          <Link to="/sign-in" className="header__link element-hover">
+          <Link
+            to="/sign-in"
+            onClick={onInitInput}
+            className="header__link element-hover"
+          >
             Войти
           </Link>
         </Route>
         <Route path="/sign-in">
-          <Link to="/sign-up" className="header__link element-hover">
+          <Link
+            to="/sign-up"
+            onClick={onInitInput}
+            className="header__link element-hover"
+          >
             Регистрация
           </Link>
         </Route>

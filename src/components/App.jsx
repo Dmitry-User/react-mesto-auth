@@ -16,6 +16,7 @@ import api from "../utils/Api";
 import * as auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
 import InfoBar from "./InfoBar";
+import LoadingPage from "./LoadingPage";
 
 const App = () => {
   const history = useHistory();
@@ -34,21 +35,27 @@ const App = () => {
   const [emailUser, setEmailUser] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [typeInput, setTypeInput] = useState("password");
+  const [passIcon, setPassIcon] = useState("pass-icon_type_unvisible");
+  const [isLoadingPage, setIsLoadingPage] = useState(true);
 
   useEffect(() => {
+    setIsLoadingPage(true);
     Promise.all([api.getUserInfo(), api.getInitialCards()])
       .then(([userInfo, cards]) => {
         setCurrentUser(userInfo);
         setCards(cards);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoadingPage(false));
   }, []);
 
   useEffect(() => {
     const tokenCheck = () => {
       if (!localStorage.getItem("token")) return;
       const token = localStorage.getItem("token");
-      auth.getContent(token)
+      auth
+        .getContent(token)
         .then((res) => {
           setEmailUser(res.data.email);
           setLoggetIn(true);
@@ -141,20 +148,18 @@ const App = () => {
   };
 
   const handleRegister = (password, email) => {
-    return auth.register(password, email)
-      .then(() => {
-        history.push("/sign-in");
+    return auth.register(password, email).then(() => {
+      history.push("/sign-in");
     });
   };
 
   const handleLogin = (password, email) => {
-    return auth.authorize(password, email)
-      .then((data) => {
-        localStorage.setItem("token", data.token);
-        setEmailUser(email);
-        setLoggetIn(true);
-        history.push("/");
-      });
+    return auth.authorize(password, email).then((data) => {
+      localStorage.setItem("token", data.token);
+      setEmailUser(email);
+      setLoggetIn(true);
+      history.push("/");
+    });
   };
 
   const handleLogout = () => {
@@ -162,6 +167,8 @@ const App = () => {
     setEmailUser("");
     setLoggetIn(false);
     setIsVisible(false);
+    setTypeInput("password");
+    setPassIcon("pass-icon_type_unvisible");
     history.push("/sign-in");
   };
 
@@ -185,23 +192,56 @@ const App = () => {
     setCardId("");
   };
 
-  return (
+  const handleInitInput = () => {
+    setTypeInput("password");
+    setPassIcon("pass-icon_type_unvisible");
+  };
+
+  const togglePassIcon = () => {
+    if (typeInput === "password") {
+      setTypeInput("text");
+      setPassIcon("pass-icon_type_visible");
+    } else {
+      setTypeInput("password");
+      setPassIcon("pass-icon_type_unvisible");
+    }
+  };
+
+  return isLoadingPage ? (
+    <LoadingPage />
+  ) : (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
-        <InfoBar isVisible={isVisible} emailUser={emailUser} onLogout={handleLogout} />
-        <Header emailUser={emailUser} onLogout={handleLogout} onVisible={handleVisible}/>
+        <InfoBar
+          isVisible={isVisible}
+          emailUser={emailUser}
+          onLogout={handleLogout}
+        />
+        <Header
+          emailUser={emailUser}
+          onLogout={handleLogout}
+          onVisible={handleVisible}
+          onInitInput={handleInitInput}
+        />
         <main className="content">
           <Switch>
             <Route path="/sign-in">
               <Login
                 onLogin={handleLogin}
                 onInfoTooltip={handleInfoTooltip}
+                typeInput={typeInput}
+                passIcon={passIcon}
+                onToggleIcon={togglePassIcon}
               />
             </Route>
             <Route path="/sign-up">
               <Register
                 onRegister={handleRegister}
                 onInfoTooltip={handleInfoTooltip}
+                typeInput={typeInput}
+                passIcon={passIcon}
+                onToggleIcon={togglePassIcon}
+                onInitInput={handleInitInput}
               />
             </Route>
             <ProtectedRoute path="/" loggedIn={loggedIn}>

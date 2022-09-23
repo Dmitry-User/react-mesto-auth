@@ -75,3 +75,10 @@
 @import url(./blocks/register/__signin/register__signin.css);
 @import url(./blocks/register/__signin-text/register__signin-text.css);
 @import url(./blocks/register/__login-link/register__login-link.css);
+@import url(./blocks/pass-icon/pass-icon.css);
+@import url(./blocks/pass-icon/_type_visible/pass-icon_type_visible.css);
+@import url(./blocks/pass-icon/_type_unvisible/pass-icon_type_unvisible.css);
+@import url(./blocks/loader/loader.css);
+@import url(./blocks/loader/__container/loader__container.css);
+@import url(./blocks/loader/__circle/loader__circle.css);
+@import url(./blocks/loader/__center-circle/loader__center-circle.css);

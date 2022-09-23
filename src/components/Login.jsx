@@ -1,18 +1,23 @@
 import useForm from "../hooks/useForm";
 const initValues = { password: "", email: "" };
 
-const Login = ({ onLogin, onInfoTooltip }) => {
+const Login = ({
+  onLogin,
+  onInfoTooltip,
+  typeInput,
+  passIcon,
+  onToggleIcon,
+}) => {
   const { values, handleChange, errors, isValidForm } = useForm(initValues);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { password, email } = values;
     if (!password || !email) return;
-    onLogin(password, email)
-      .catch((err) => {
-        onInfoTooltip(false);
-        console.log(err);
-      });
+    onLogin(password, email).catch((err) => {
+      onInfoTooltip(false);
+      console.log(err);
+    });
   };
 
   return (
@@ -33,7 +38,7 @@ const Login = ({ onLogin, onInfoTooltip }) => {
         </label>
         <label>
           <input
-            type="password"
+            type={typeInput}
             value={values.password}
             name="password"
             onChange={handleChange}
@@ -41,9 +46,14 @@ const Login = ({ onLogin, onInfoTooltip }) => {
             required
             className="login__input"
           />
+          <span className={`pass-icon ${passIcon}`} onClick={onToggleIcon} />
           <span className="form__error">{errors.password}</span>
         </label>
-        <button type="submit" aria-label="Войти" className={`login__submit ${!isValidForm && "login__submit_disable"}`}>
+        <button
+          type="submit"
+          aria-label="Войти"
+          className={`login__submit ${!isValidForm && "login__submit_disable"}`}
+        >
           Войти
         </button>
       </form>

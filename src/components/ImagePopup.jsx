@@ -9,9 +9,7 @@ const ImagePopup = ({ card, isOpen, onClose }) => {
           src={card.link}
           alt={`Фото ${card.name}.`}
         />
-        <figcaption className="popup__image-caption">
-          {card.name}
-        </figcaption>
+        <figcaption className="popup__image-caption">{card.name}</figcaption>
         <button
           className="popup__close element-hover"
           type="button"

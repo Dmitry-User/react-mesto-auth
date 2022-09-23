@@ -19,7 +19,9 @@ const InfoTooltip = ({ isOpen, onClose, isSuccess }) => {
           }}
         />
         <h2 className="tooltip__title">
-          {isSuccess ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз."}
+          {isSuccess
+            ? "Вы успешно зарегистрировались!"
+            : "Что-то пошло не так! Попробуйте ещё раз."}
         </h2>
       </div>
     </Popup>
