@@ -43,13 +43,7 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
             type="button"
             aria-label="Поставить лайк"
           />
-          <span
-            className={`card__like-count ${
-              card.likes.length < 1 && "hide-like"
-            }`}
-          >
-            {card.likes.length}
-          </span>
+          {card.likes.length > 0 && <span className="card__like-count">{card.likes.length}</span>}
         </div>
       </div>
     </article>
