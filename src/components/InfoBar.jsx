@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 
-const InfoBar = ({ isVisible, emailUser, onLogout }) => {
+const InfoBar = ({ isMenuOpen, emailUser, onLogout }) => {
+
   return (
-    <div className={`info-bar ${!isVisible ? "info-bar_hiden" : ""}`}>
+    <div className={`info-bar ${!isMenuOpen ? "info-bar_hiden" : ""}`}>
       <p className="info-bar__email">{emailUser}</p>
       <Link
         to="/sign-in"

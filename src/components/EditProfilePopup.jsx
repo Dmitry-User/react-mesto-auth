@@ -8,9 +8,9 @@ const EditProfilePopup = ({
   onClose,
   onUpdateUser,
   isLoading,
-  buttonText,
 }) => {
   const currentUser = useContext(CurrentUserContext);
+  const buttonText = isLoading ? "Сохранение..." : "Сохранить";
   const { values, setValues, errors, handleChange, isValidForm, resetForm } = useForm(currentUser);
 
   useEffect(() => {

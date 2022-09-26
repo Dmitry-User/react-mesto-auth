@@ -21,7 +21,7 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
   };
 
   return (
-    <article key={card._id} className="card">
+    <article className="card">
       <button
         type="button"
         onClick={handleDeleteClick}
@@ -43,7 +43,7 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
             type="button"
             aria-label="Поставить лайк"
           />
-          {card.likes.length > 0 && <span className="card__like-count">{card.likes.length}</span>}
+          {card.likes.length !== 0 && <span className="card__like-count">{card.likes.length}</span>}
         </div>
       </div>
     </article>

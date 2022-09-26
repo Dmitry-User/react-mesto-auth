@@ -4,7 +4,6 @@ const initValues = { password: "", email: "" };
 
 const Register = ({
   onRegister,
-  onInfoTooltip,
   typeInput,
   passIcon,
   onToggleIcon,
@@ -16,14 +15,7 @@ const Register = ({
     e.preventDefault();
     const { password, email } = values;
     if (!password || !email) return;
-    onRegister(password, email)
-      .then(() => {
-        onInfoTooltip(true);
-      })
-      .catch((err) => {
-        onInfoTooltip(false);
-        console.log(err);
-      });
+    onRegister(password, email);
   };
 
   return (

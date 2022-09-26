@@ -7,9 +7,9 @@ const EditAvatarPopup = ({
   onClose,
   onUpdateAvatar,
   isLoading,
-  buttonText,
 }) => {
   const refValue = useRef();
+  const buttonText = isLoading ? "Сохранение..." : "Обновить";
   const { values, setValues, errors, handleChange, isValidForm, resetForm } = useForm({ avatar: "" });
 
   useEffect(() => {

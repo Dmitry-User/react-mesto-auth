@@ -3,7 +3,6 @@ const initValues = { password: "", email: "" };
 
 const Login = ({
   onLogin,
-  onInfoTooltip,
   typeInput,
   passIcon,
   onToggleIcon,
@@ -14,10 +13,7 @@ const Login = ({
     e.preventDefault();
     const { password, email } = values;
     if (!password || !email) return;
-    onLogin(password, email).catch((err) => {
-      onInfoTooltip(false);
-      console.log(err);
-    });
+    onLogin(password, email);
   };
 
   return (

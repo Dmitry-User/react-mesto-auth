@@ -15,7 +15,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import api from "../utils/Api";
 import * as auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
-import InfoBar from "./InfoBar";
+// import InfoBar from "./InfoBar";
 import LoadingPage from "./LoadingPage";
 
 const App = () => {
@@ -34,7 +34,6 @@ const App = () => {
   const [loggedIn, setLoggetIn] = useState(false);
   const [emailUser, setEmailUser] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const [typeInput, setTypeInput] = useState("password");
   const [passIcon, setPassIcon] = useState("pass-icon_type_unvisible");
   const [isLoadingPage, setIsLoadingPage] = useState(true);
@@ -51,9 +50,9 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const tokenCheck = () => {
-      if (!localStorage.getItem("token")) return;
+    const checkToken = () => {
       const token = localStorage.getItem("token");
+      if (!token) return;
       auth
         .getContent(token)
         .then((res) => {
@@ -64,7 +63,7 @@ const App = () => {
         .catch((err) => console.log(err));
     };
 
-    tokenCheck();
+    checkToken();
   }, []);
 
   const handleUpdateUser = (user) => {
@@ -116,12 +115,11 @@ const App = () => {
   };
 
   const handleCardDelete = () => {
-    const currentCard = cardId;
     setIsLoading(true);
     api
-      .deleteCard(currentCard)
+      .deleteCard(cardId)
       .then(() => {
-        setCards((newCards) => newCards.filter((c) => c._id !== currentCard));
+        setCards((newCards) => newCards.filter((c) => c._id !== cardId));
         closeAllPopups();
       })
       .catch((err) => console.log(err))
@@ -148,32 +146,40 @@ const App = () => {
   };
 
   const handleRegister = (password, email) => {
-    return auth.register(password, email).then(() => {
-      history.push("/sign-in");
-    });
+    return auth
+      .register(password, email)
+      .then(() => {
+        handleInfoTooltip(true);
+        history.push("/sign-in");
+      })
+      .catch((err) => {
+        handleInfoTooltip(false);
+        console.log(err);
+      });
   };
 
   const handleLogin = (password, email) => {
-    return auth.authorize(password, email).then((data) => {
+    return auth
+      .authorize(password, email)
+      .then((data) => {
       localStorage.setItem("token", data.token);
       setEmailUser(email);
       setLoggetIn(true);
       history.push("/");
-    });
+      })
+      .catch((err) => {
+        handleInfoTooltip(false);
+        console.log(err);
+      });
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setEmailUser("");
     setLoggetIn(false);
-    setIsVisible(false);
     setTypeInput("password");
     setPassIcon("pass-icon_type_unvisible");
     history.push("/sign-in");
-  };
-
-  const handleVisible = () => {
-    setIsVisible(!isVisible);
   };
 
   const handleInfoTooltip = (status) => {
@@ -212,15 +218,9 @@ const App = () => {
   ) : (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="wrapper">
-        <InfoBar
-          isVisible={isVisible}
-          emailUser={emailUser}
-          onLogout={handleLogout}
-        />
         <Header
           emailUser={emailUser}
           onLogout={handleLogout}
-          onVisible={handleVisible}
           onInitInput={handleInitInput}
         />
         <main className="content">
@@ -228,7 +228,6 @@ const App = () => {
             <Route path="/sign-in">
               <Login
                 onLogin={handleLogin}
-                onInfoTooltip={handleInfoTooltip}
                 typeInput={typeInput}
                 passIcon={passIcon}
                 onToggleIcon={togglePassIcon}
@@ -237,7 +236,6 @@ const App = () => {
             <Route path="/sign-up">
               <Register
                 onRegister={handleRegister}
-                onInfoTooltip={handleInfoTooltip}
                 typeInput={typeInput}
                 passIcon={passIcon}
                 onToggleIcon={togglePassIcon}
@@ -265,28 +263,24 @@ const App = () => {
         onClose={closeAllPopups}
         onUpdateAvatar={handleUpdateAvatar}
         isLoading={isLoading}
-        buttonText={isLoading ? "Сохранение..." : "Обновить"}
       />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
         onUpdateUser={handleUpdateUser}
         isLoading={isLoading}
-        buttonText={isLoading ? "Сохранение..." : "Сохранить"}
       />
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
         onAddPlace={handleAddPlaceSubmit}
         isLoading={isLoading}
-        buttonText={isLoading ? "Сохранение..." : "Создать"}
       />
       <ConfirmDeletePopup
         isOpen={isConfirmDeletePopupOpen}
         onClose={closeAllPopups}
         onDeleteCard={handleCardDelete}
         isLoading={isLoading}
-        buttonText={isLoading ? "Удаление..." : "Удалить"}
       />
       <ImagePopup
         card={selectedCard}

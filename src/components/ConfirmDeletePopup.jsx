@@ -4,9 +4,9 @@ const ConfirmDeletePopup = ({
   isOpen,
   onClose,
   isLoading,
-  buttonText,
   onDeleteCard,
 }) => {
+  const buttonText = isLoading ? "Удаление..." : "Удалить";
   const handleSubmit = (e) => {
     e.preventDefault();
     onDeleteCard();

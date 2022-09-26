@@ -9,8 +9,8 @@ const AddPlacePopup = ({
   onClose,
   onAddPlace,
   isLoading,
-  buttonText,
 }) => {
+  const buttonText = isLoading ? "Сохранение..." : "Создать";
   const { values, setValues, handleChange, errors, isValidForm, resetForm } = useForm(initValue);
 
   useEffect(() => {
