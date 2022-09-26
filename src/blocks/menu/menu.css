@@ -1,4 +1,4 @@
-.info-bar {
+.menu {
   display: none;
   box-sizing: border-box;
   width: 100%;
@@ -12,7 +12,7 @@
 }
 
 @media (max-width: 618px) {
-  .info-bar {
+  .menu {
     display: flex;
   }
 }

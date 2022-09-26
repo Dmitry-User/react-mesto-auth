@@ -1,12 +1,8 @@
 import useForm from "../hooks/useForm";
+import PasswordInput from "./PasswordInput";
 const initValues = { password: "", email: "" };
 
-const Login = ({
-  onLogin,
-  typeInput,
-  passIcon,
-  onToggleIcon,
-}) => {
+const Login = ({ onLogin }) => {
   const { values, handleChange, errors, isValidForm } = useForm(initValues);
 
   const handleSubmit = (e) => {
@@ -33,16 +29,10 @@ const Login = ({
           <span className="form__error">{errors.email}</span>
         </label>
         <label>
-          <input
-            type={typeInput}
-            value={values.password}
-            name="password"
+          <PasswordInput
+            isValue={values.password}
             onChange={handleChange}
-            placeholder="Пароль"
-            required
-            className="login__input"
           />
-          <span className={`pass-icon ${passIcon}`} onClick={onToggleIcon} />
           <span className="form__error">{errors.password}</span>
         </label>
         <button

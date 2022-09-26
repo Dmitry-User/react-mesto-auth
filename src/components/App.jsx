@@ -15,7 +15,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import api from "../utils/Api";
 import * as auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
-// import InfoBar from "./InfoBar";
 import LoadingPage from "./LoadingPage";
 
 const App = () => {
@@ -34,8 +33,6 @@ const App = () => {
   const [loggedIn, setLoggetIn] = useState(false);
   const [emailUser, setEmailUser] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
-  const [typeInput, setTypeInput] = useState("password");
-  const [passIcon, setPassIcon] = useState("pass-icon_type_unvisible");
   const [isLoadingPage, setIsLoadingPage] = useState(true);
 
   useEffect(() => {
@@ -177,8 +174,6 @@ const App = () => {
     localStorage.removeItem("token");
     setEmailUser("");
     setLoggetIn(false);
-    setTypeInput("password");
-    setPassIcon("pass-icon_type_unvisible");
     history.push("/sign-in");
   };
 
@@ -198,21 +193,6 @@ const App = () => {
     setCardId("");
   };
 
-  const handleInitInput = () => {
-    setTypeInput("password");
-    setPassIcon("pass-icon_type_unvisible");
-  };
-
-  const togglePassIcon = () => {
-    if (typeInput === "password") {
-      setTypeInput("text");
-      setPassIcon("pass-icon_type_visible");
-    } else {
-      setTypeInput("password");
-      setPassIcon("pass-icon_type_unvisible");
-    }
-  };
-
   return isLoadingPage ? (
     <LoadingPage />
   ) : (
@@ -221,26 +201,14 @@ const App = () => {
         <Header
           emailUser={emailUser}
           onLogout={handleLogout}
-          onInitInput={handleInitInput}
         />
         <main className="content">
           <Switch>
             <Route path="/sign-in">
-              <Login
-                onLogin={handleLogin}
-                typeInput={typeInput}
-                passIcon={passIcon}
-                onToggleIcon={togglePassIcon}
-              />
+              <Login onLogin={handleLogin} />
             </Route>
             <Route path="/sign-up">
-              <Register
-                onRegister={handleRegister}
-                typeInput={typeInput}
-                passIcon={passIcon}
-                onToggleIcon={togglePassIcon}
-                onInitInput={handleInitInput}
-              />
+              <Register onRegister={handleRegister} />
             </Route>
             <ProtectedRoute path="/" loggedIn={loggedIn}>
               <Main

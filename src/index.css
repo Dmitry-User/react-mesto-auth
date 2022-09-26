@@ -2,10 +2,10 @@
 @import url(./vendor/fonts/inter.css);
 @import url(./blocks/root/root.css);
 @import url(./blocks/wrapper/wrapper.css);
-@import url(./blocks/info-bar/info-bar.css);
-@import url(./blocks/info-bar/__email/info-bar__email.css);
-@import url(./blocks/info-bar/__link/info-bar__link.css);
-@import url(./blocks/info-bar/_hiden/info-bar_hiden.css);
+@import url(./blocks/menu/menu.css);
+@import url(./blocks/menu/__email/menu__email.css);
+@import url(./blocks/menu/__link/menu__link.css);
+@import url(./blocks/menu/_hiden/menu_hiden.css);
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__info/header__info.css);
@@ -74,6 +74,7 @@
 @import url(./blocks/register/__signin/register__signin.css);
 @import url(./blocks/register/__signin-text/register__signin-text.css);
 @import url(./blocks/register/__login-link/register__login-link.css);
+@import url(./blocks/pass-input/pass-input.css);
 @import url(./blocks/pass-icon/pass-icon.css);
 @import url(./blocks/pass-icon/_type_visible/pass-icon_type_visible.css);
 @import url(./blocks/pass-icon/_type_unvisible/pass-icon_type_unvisible.css);

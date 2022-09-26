@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import logo from "../images/logo.svg";
-import InfoBar from "./InfoBar";
+import Menu from "./Menu";
 
-const Header = ({ emailUser, onLogout, onInitInput }) => {
+const Header = ({ emailUser, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(state => !state);
+    setIsMenuOpen((state) => !state);
   };
 
   const handleLogoutOfMenu = () => {
@@ -17,7 +17,11 @@ const Header = ({ emailUser, onLogout, onInitInput }) => {
 
   return (
     <>
-      <InfoBar isMenuOpen={isMenuOpen} emailUser={emailUser} onLogout={handleLogoutOfMenu} />
+      <Menu
+        isMenuOpen={isMenuOpen}
+        emailUser={emailUser}
+        onLogout={handleLogoutOfMenu}
+      />
       <header className="header">
         <img src={logo} alt="Логотип" className="header__logo" />
         <Switch>
@@ -33,9 +37,7 @@ const Header = ({ emailUser, onLogout, onInitInput }) => {
               </button>
             </div>
             <div
-              className={`header__burger-button ${
-                isMenuOpen ? "header__burger-button_is-click" : ""
-              }`}
+              className={`header__burger-button ${isMenuOpen ? "header__burger-button_is-click" : ""}`}
               onClick={toggleMenu}
             >
               <span></span>
@@ -47,11 +49,7 @@ const Header = ({ emailUser, onLogout, onInitInput }) => {
             </Link>
           </Route>
           <Route path="/sign-in">
-            <Link
-              to="/sign-up"
-              onClick={onInitInput}
-              className="header__link element-hover"
-            >
+            <Link to="/sign-up" className="header__link element-hover">
               Регистрация
             </Link>
           </Route>

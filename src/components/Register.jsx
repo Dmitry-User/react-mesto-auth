@@ -1,14 +1,9 @@
 import { Link } from "react-router-dom";
 import useForm from "../hooks/useForm";
+import PasswordInput from "./PasswordInput";
 const initValues = { password: "", email: "" };
 
-const Register = ({
-  onRegister,
-  typeInput,
-  passIcon,
-  onToggleIcon,
-  onInitInput,
-}) => {
+const Register = ({ onRegister }) => {
   const { values, handleChange, errors, isValidForm } = useForm(initValues);
 
   const handleSubmit = (e) => {
@@ -35,36 +30,24 @@ const Register = ({
           <span className="form__error">{errors.email}</span>
         </label>
         <label>
-          <input
-            type={typeInput}
-            value={values.password}
-            name="password"
-            placeholder="Пароль"
-            required
+          <PasswordInput
+            isValue={values.password}
             onChange={handleChange}
-            className="register__input"
           />
-          <span className={`pass-icon ${passIcon}`} onClick={onToggleIcon} />
           <span className="form__error">{errors.password}</span>
         </label>
         <button
           type="submit"
           aria-label="Войти"
-          className={`register__submit ${
-            !isValidForm && "register__submit_disable"
-          }`}
+          className={`register__submit ${!isValidForm && "register__submit_disable"}`}
         >
           Зарегистрироваться
         </button>
       </form>
       <div className="register__signin">
-        <p className="register__signin-text">Уже зарегистрированы?</p>
-        <Link
-          to="/sign-in"
-          onClick={onInitInput}
-          className="register__login-link element-hover"
-        >
-          &ensp;Войти
+        <p className="register__signin-text">Уже зарегистрированы?&ensp;</p>
+        <Link to="/sign-in" className="register__login-link element-hover">
+          Войти
         </Link>
       </div>
     </section>

@@ -1,9 +1,11 @@
-.info-bar__email {
-  margin: 40px 0 18px;
+.menu__link {
+  display: inline-block;
+  margin-bottom: 40px;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   color: #fff;
+  text-decoration: none;
 }
