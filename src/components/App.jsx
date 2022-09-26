@@ -159,10 +159,10 @@ const App = () => {
     return auth
       .authorize(password, email)
       .then((data) => {
-      localStorage.setItem("token", data.token);
-      setEmailUser(email);
-      setLoggetIn(true);
-      history.push("/");
+        localStorage.setItem("token", data.token);
+        setEmailUser(email);
+        setLoggetIn(true);
+        history.push("/");
       })
       .catch((err) => {
         handleInfoTooltip(false);
